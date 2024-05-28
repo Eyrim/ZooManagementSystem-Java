@@ -18,8 +18,8 @@ public class FeedingScheduler extends ZooScheduler {
         return instance;
     }
 
-	@Override
-	public void assignJobs(List<? extends Keeper<? extends Animal>> keepers) {
+    @Override
+    public void assignJobs(List<? extends Keeper<? extends Animal>> keepers) {
         keepers.forEach(keeper -> keeper.getResponsibleAnimals().forEach(keeper::feed));
-	}
+    }
 }
