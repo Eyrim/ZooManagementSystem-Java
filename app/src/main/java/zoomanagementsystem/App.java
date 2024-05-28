@@ -3,6 +3,7 @@ package zoomanagementsystem;
 import zoomanagementsystem.models.*;
 import zoomanagementsystem.services.FeedingScheduler;
 import zoomanagementsystem.services.GroomingScheduler;
+import zoomanagementsystem.services.ZooScheduler;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,11 +33,13 @@ public class App {
         Rabbit babyRabbit = new Rabbit(LocalDate.now());
         smallAnimalKeeper.startLookingAfter(babyRabbit);
 
-        final FeedingScheduler feedingScheduler = FeedingScheduler.getInstance();
-        final GroomingScheduler groomingScheduler = GroomingScheduler.getInstance();
+        final List<? extends ZooScheduler> schedulers = List.of(
+            FeedingScheduler.getInstance(),
+            GroomingScheduler.getInstance()
+        );
 
-        feedingScheduler.assignJobs(keepers);
-        groomingScheduler.assignJobs(keepers);
+        schedulers.forEach((scheduler) -> scheduler.assignJobs(keepers));
+
         animals.forEach(System.out::println);
     }
 }
