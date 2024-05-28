@@ -6,24 +6,27 @@ import zoomanagementsystem.models.Keeper;
 
 import java.util.List;
 
-public class GroomingScheduler {
+public class GroomingScheduler extends ZooScheduler {
     private static GroomingScheduler instance;
 
     private GroomingScheduler() {
+        super();
     }
 
     public static GroomingScheduler getInstance() {
         if (instance == null) {
-            instance = new GroomingScheduler();
+            return new GroomingScheduler();
+        } else {
+            return instance;
         }
-        return instance;
     }
 
-    public void assignGroomingJobs(List<Keeper<? extends Animal>> keepers) {
+	@Override
+	public void assignJobs(List<? extends Keeper<? extends Animal>> keepers) {
         keepers.forEach(keeper -> keeper.getResponsibleAnimals().forEach(animal -> {
             if (animal instanceof CanBeGroomed) {
                 keeper.groom((CanBeGroomed) animal);
             }
         }));
-    }
+	}
 }

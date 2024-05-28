@@ -7,7 +7,6 @@ import zoomanagementsystem.services.GroomingScheduler;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class App {
@@ -33,11 +32,11 @@ public class App {
         Rabbit babyRabbit = new Rabbit(LocalDate.now());
         smallAnimalKeeper.startLookingAfter(babyRabbit);
 
-        FeedingScheduler feedingScheduler = FeedingScheduler.getInstance();
-        GroomingScheduler groomingScheduler = GroomingScheduler.getInstance();
+        final FeedingScheduler feedingScheduler = FeedingScheduler.getInstance();
+        final GroomingScheduler groomingScheduler = GroomingScheduler.getInstance();
 
-        feedingScheduler.assignFeedingJobs(keepers);
-        groomingScheduler.assignGroomingJobs(keepers);
+        feedingScheduler.assignJobs(keepers);
+        groomingScheduler.assignJobs(keepers);
         animals.forEach(System.out::println);
     }
 }
